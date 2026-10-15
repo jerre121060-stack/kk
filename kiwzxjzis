@@ -1,0 +1,65 @@
+-- KIWBOXZ Script Hub
+-- UI Library: Rayfield
+-- Theme: Purple (สีม่วง)
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+-- Services & Variables
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Camera = workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+
+-- Configurations
+local AimbotEnabled = false
+local AimPart = "Head" -- "Head" หรือ "HumanoidRootPart"
+local FOVSize = 100
+local Smoothness = 0.2 -- ค่าความแรงในการดึง (0.05 - 1.0)
+local ShowFOV = false
+
+local ESP_Enabled = false
+local ESP_Boxes = false
+local ESP_Highlights = false
+local ESP_Names = false
+
+-- FOV Circle Visual
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Color = Color3.fromRGB(170, 0, 255)
+FOVCircle.Thickness = 1.5
+FOVCircle.NumSides = 60
+FOVCircle.Radius = FOVSize
+FOVCircle.Filled = false
+FOVCircle.Visible = false
+
+-- Create Window (ธีมสีม่วง)
+local Window = Rayfield:CreateWindow({
+   Name = "KIWBOXZ Hub 🟣",
+   LoadingTitle = "KIWBOXZ Loading...",
+   LoadingSubtitle = "by Assistant",
+   ConfigurationSaving = { Enabled = false },
+   Discord = { Enabled = false },
+   KeySystem = false,
+   Theme = "Purple"
+})
+
+---------------------------------------------------------
+-- TAB 1: AIMBOT (ระบบล็อคเป้า)
+---------------------------------------------------------
+local AimTab = Window:CreateTab("Aimbot 🎯", 4483362458)
+
+AimTab:CreateToggle({
+   Name = "เปิดใช้งาน Aimbot (Lock Target)",
+   CurrentValue = false,
+   Callback = function(Value)
+      AimbotEnabled = Value
+   end,
+})
+
+AimTab:CreateDropdown({
+   Name = "ตำแหน่งที่ต้องการล็อค",
+   Options = {"หัว (Head)", "ตัว (Torso/Chest)"},
+   CurrentOption = {"หัว (Head)"},
+   MultipleOptions = false,
+   Callback = function(Option)
+      if Option
